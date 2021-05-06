@@ -49,7 +49,7 @@ startGame = () => {
 getNewQuestion = () => {
 
     if(availableQuestions.length === 0 | questionCounter >= MAX_QUESTIONS){
-        return window.location.assign('/end.html');
+        return window.location.assign('end.html');
     }
 
     questionCounter++;
@@ -89,8 +89,20 @@ choices.forEach(choice => {
         const selectedChoice = e.target;
         const selectedAnswer = selectedChoice.dataset['number'];
 
-        console.log(selectedAnswer === currentQuestion.answer)
-        getNewQuestion();
+        const classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
+
+        selectedChoice.parentElement.classList.add(classToApply);
+
+        setTimeout( () => {
+            selectedChoice.parentElement.classList.remove(classToApply);
+            
+       
+
+            getNewQuestion();
+        }, 1000)
+
+    
+
     })
 })
 

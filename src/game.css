@@ -23,3 +23,12 @@
 .choice-text {
     padding: 1.5rem;
 }
+
+.correct {
+    background-color: rgb(15, 172, 36);
+
+}
+
+.incorrect {
+    background-color: #dc3545;
+}
