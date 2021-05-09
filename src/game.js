@@ -2,9 +2,12 @@
 
 const question = document.getElementById("question");
 
-const questionCounterText = document.getElementById('questionCounter');
+const progressText = document.getElementById('progressText');
 
 const scoreText = document.getElementById('score');
+
+const progressBarFull = document.getElementById('progressBarFull');
+
 
 
 
@@ -42,7 +45,7 @@ let questions = [
 ];
 
 const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = 3;
+const MAX_QUESTIONS = 2;
 
 startGame = () => {
     questionCounter = 0;
@@ -58,7 +61,13 @@ getNewQuestion = () => {
     }
 
     questionCounter++;
-    questionCounterText.innerHTML = `${questionCounter}/${MAX_QUESTIONS}`;
+    progressText.innerHTML = `Question ${questionCounter}/${MAX_QUESTIONS}`;
+
+    //Update The Progress Bar
+
+    progressBarFull.style.width = `${ (questionCounter/MAX_QUESTIONS)*100}%`;
+
+
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
 
 
