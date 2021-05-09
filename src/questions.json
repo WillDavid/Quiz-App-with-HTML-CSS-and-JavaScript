@@ -1,0 +1,21 @@
+[
+    {
+        "question": "Qual é o nome do personagem principal de Naruto?",
+        "choice1": "Kakashi",
+        "choice2": "Naruto",
+        "choice3": "Rock Lee",
+        "choice4": "Sakura",
+        "answer": 2
+        
+    },
+
+    {
+        "question": "Qual é o nome do personagem principal de DragonBall?",
+        "choice1": "Minato",
+        "choice2": "Goku",
+        "choice3": "Ichigo",
+        "choice4": "Naruto",
+        "answer": 2
+        
+    }
+]

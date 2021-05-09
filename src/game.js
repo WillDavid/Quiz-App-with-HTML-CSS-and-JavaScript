@@ -8,7 +8,9 @@ const scoreText = document.getElementById('score');
 
 const progressBarFull = document.getElementById('progressBarFull');
 
+const loader = document.getElementById('loader');
 
+const game = document.getElementById('game');
 
 
 
@@ -22,27 +24,38 @@ let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
 
-let questions = [
-    {
-        question: "Qual é o nome do personagem principal de Naruto?",
-        choice1: "Kakashi",
-        choice2: "Naruto",
-        choice3: "Rock Lee",
-        choice4: "Sakura",
-        answer: 2
-        
-    },
+let questions = [];
 
-    {
-        question: "Qual é o nome do personagem principal de DragonBall?",
-        choice1: "Minato",
-        choice2: "Goku",
-        choice3: "Ichigo",
-        choice4: "Naruto",
-        answer: 2
-        
-    }
-];
+fetch("https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple").then( res => {
+    return res.json();
+}).then( loadedQuestions => {
+    console.log(loadedQuestions.results)
+    questions = loadedQuestions.results.map( loadedQuestions => {
+        const formattedQuestions = {
+            question: loadedQuestions.question
+
+        };
+
+        const answerChoices = [ ... loadedQuestions.incorrect_answers];
+        formattedQuestions.answer = Math.floor(Math.random()+3) +1;
+        answerChoices.splice(formattedQuestions.answer - 1, 0, loadedQuestions.correct_answer);
+
+        answerChoices.forEach((choice, index) => {
+            formattedQuestions['choice' + (index+1)] = choice;
+        })
+
+        return formattedQuestions;
+
+    })
+
+   
+
+    startGame()
+
+}).catch( err => {
+    console.error(err);
+    
+})
 
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 2;
@@ -52,6 +65,8 @@ startGame = () => {
     score = 0;
     availableQuestions = [ ... questions];
     getNewQuestion();
+    game.classList.remove('hidden')
+    loader.classList.add('hidden')
 }
 
 getNewQuestion = () => {
@@ -122,5 +137,3 @@ incrementScore = num => {
     score = score + num;
     scoreText.innerHTML = score;
 }
-
-startGame();
